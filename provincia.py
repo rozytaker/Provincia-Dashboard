@@ -68,10 +68,10 @@ final_data_transpose=final_data.T
 #st.write(f"The sum of the two numbers is: {st.dataframe(final_data)")
 st.dataframe(final_data)
 def convert_df(df):
-   return final_data_transpose.to_csv(index=False).encode('utf-8')
+   return final_data.to_csv(index=False).encode('utf-8')
 
 
-csv = convert_df(final_data_transpose)
+csv = convert_df(final_data)
 st.download_button(
    "Press to Download",
    csv,
