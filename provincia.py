@@ -1,5 +1,9 @@
 import streamlit as st
 import pandas as pd
+# import locale
+# from locale import atof
+
+
 # Get two numbers from the user
 sideb = st.sidebar
 sqft = sideb.number_input("Enter SqFt:",value=1715)
@@ -52,19 +56,22 @@ final_data['Registration']=registration_cost
 final_data['Corpus']=corpus_fund
 final_data['Maintainence']=maintainence_cost
 final_data['Total Final Cost of House']=final_cost_of_house
+#final_data=final_data.applymap(atof)
+lst = list(final_data.columns)
+for c in lst:
+    final_data[c] = final_data[c].astype(int).apply(lambda x: f'{x:,}')
+print(final_data)
 
 final_data_transpose=final_data.T
-
 
 # Display the result
 #st.write(f"The sum of the two numbers is: {st.dataframe(final_data)")
 st.dataframe(final_data)
 def convert_df(df):
-   return final_data.to_csv(index=False).encode('utf-8')
+   return final_data_transpose.to_csv(index=False).encode('utf-8')
 
 
-csv = convert_df(final_data)
-
+csv = convert_df(final_data_transpose)
 st.download_button(
    "Press to Download",
    csv,
